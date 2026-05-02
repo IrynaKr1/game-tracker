@@ -32,9 +32,6 @@ module.exports = {
       rating: {
         type: Sequelize.DECIMAL(2, 1),
       },
-      notes: {
-        type: Sequelize.TEXT,
-      },
       playtime: {
         type: Sequelize.INTEGER,
       },
