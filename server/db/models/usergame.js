@@ -4,11 +4,6 @@ const { GAME_STATUS, GAME_STATUS_LIST } = require('../../constants');
 
 module.exports = (sequelize, DataTypes) => {
   class UserGame extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate (models) {
       UserGame.belongsTo(models.User, {
         foreignKey: 'user_id',
@@ -22,15 +17,25 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserGame.init(
     {
-      userd: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'user_id',
       },
       rawgId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         field: 'rawg_id',
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      genre: {
+        type: DataTypes.STRING,
+      },
+      image: {
+        type: DataTypes.STRING,
       },
       status: {
         type: DataTypes.ENUM(...GAME_STATUS_LIST),
