@@ -3,7 +3,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const { UserGame, GameNote } = require('../db/models');
 
-const USER_ID = 1;
+const USER_ID = 2;
 
 module.exports.addGame = async (req, res, next) => {
   const { body, file } = req;
@@ -40,14 +40,12 @@ module.exports.getAllGames = async (req, res, next) => {
     const games = await UserGame.findAll({
       raw: true,
       where: { user_id: USER_ID },
-      include: {
-        model: GameNote,
-        as: 'notes',
-      },
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
       },
     });
+
+    console.log('games:', JSON.stringify(games));
 
     res.status(200).send({ data: games });
   } catch (error) {

@@ -13,6 +13,8 @@ module.exports = {
       {
         user_id: userId,
         rawg_id: 326243,
+        title: 'Elden Ring',
+        genre: 'RPG',
         status: GAME_STATUS.IN_PROGRESS,
         rating: null,
         playtime: 80,
@@ -22,6 +24,8 @@ module.exports = {
       {
         user_id: userId,
         rawg_id: 3328,
+        title: 'The Witcher 3',
+        genre: 'RPG',
         status: GAME_STATUS.COMPLETED,
         rating: 4.8,
         playtime: 50,
@@ -31,6 +35,8 @@ module.exports = {
       {
         user_id: userId,
         rawg_id: 58175,
+        title: 'God of War',
+        genre: 'Action',
         status: GAME_STATUS.IN_PROGRESS,
         rating: null,
         playtime: 30,
@@ -40,6 +46,8 @@ module.exports = {
       {
         user_id: userId,
         rawg_id: 41494,
+        title: 'Cyberpunk 2077',
+        genre: 'RPG',
         status: GAME_STATUS.NOT_STARTED,
         rating: null,
         playtime: 60,
