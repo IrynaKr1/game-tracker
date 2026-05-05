@@ -1,9 +1,7 @@
 export const GAME_STATUSES = {
-  IN_PROGRESS: 'In Progress',
+  NOT_STARTED: 'Not started',
+  IN_PROGRESS: 'In progress',
   COMPLETED: 'Completed',
-  ON_HOLD: 'On Hold',
-  NOT_STARTED: 'Not Started',
-  PLAN_TO_PLAY: 'Plan to Play',
 };
 
 export const GAME_GENRES = [

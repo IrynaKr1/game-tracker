@@ -1,40 +1,51 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { GAME_STATUSES, GAME_GENRES } from '../../utils/constants';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import * as API from '../../api';
+
+const GAMES_SLICE_NAME = 'games';
 
 const initialState = {
-  games: [
-    {
-      id: 1,
-      title: 'Elden Ring',
-      genre: 'RPG',
-      status: GAME_STATUSES.IN_PROGRESS,
-      imageUrl:
-        'https://assets-prd.ignimgs.com/2021/06/12/elden-ring-button-03-1623460560664.jpg',
-      hoursToComplete: 80,
-      rating: 9.5,
-      notes: [
-        {
-          id: 'note-1',
-          content: 'Pokonałem Margita, trudny boss!',
-          createdAt: '2024-01-15T10:30:00Z',
-        },
-        {
-          id: 'note-2',
-          content: 'Znalazłem świetny miecz w Liurnia',
-          createdAt: '2024-01-20T14:20:00Z',
-        },
-      ],
-      addedAt: '2024-01-10T12:00:00Z',
-    },
-  ],
+  games: [],
+  isFetching: false,
+  error: null,
 };
 
-const gamesSlice = createSlice({
+export const getGameThunk = createAsyncThunk(
+  `${GAMES_SLICE_NAME}/getAll`,
+  async (payload, { rejectWithValue }) => {
+    try {
+      const {
+        data: { data },
+      } = await API.getAllGames();
+      return data;
+    } catch (error) {
+      return rejectWithValue({ errors: error.response.data });
+    }
+  }
+);
+
+const gameSlice = createSlice({
+  name: GAMES_SLICE_NAME,
   initialState,
-  name: 'games',
   reducers: {},
+  extraReducers: builder => {
+    // getAll
+    builder.addCase(getGameThunk.pending, state => {
+      state.isFetching = true;
+      state.error = null;
+    });
+
+    builder.addCase(getGameThunk.fulfilled, (state, { payload }) => {
+      state.isFetching = false;
+      state.games = payload;
+    });
+
+    builder.addCase(getGameThunk.rejected, (state, { payload }) => {
+      state.isFetching = false;
+      state.error = payload;
+    });
+  },
 });
 
-const { reducer, actions } = gamesSlice;
+const { reducer } = gameSlice;
 
 export default reducer;
