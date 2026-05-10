@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import StatCard from '../StatCard';
+import styles from './StatRow.module.scss';
 
 function StatRow ({ games = [] }) {
   const stats = useMemo(
@@ -13,7 +14,7 @@ function StatRow ({ games = [] }) {
     [games]
   );
   return (
-    <div>
+    <div className={styles.stats_row}>
       <StatCard label='All games' value={stats.total} />
       <StatCard label='In progress' value={stats.inProgress} />
       <StatCard label='Completed' value={stats.completed} />

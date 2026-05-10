@@ -2,6 +2,8 @@ import { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { getGameThunk } from '../../store/slices/gamesSlice';
 import StatRow from '../../components/StatRow';
+import styles from './MainPage.module.scss';
+import GameList from '../../components/GameList';
 
 function MainPage ({ games = [], isFetching, error, getGames }) {
   const [filter, setFilter] = useState('Wszystkie');
@@ -16,15 +18,16 @@ function MainPage ({ games = [], isFetching, error, getGames }) {
   return (
     <div>
       <h1>BACKLOG</h1>
-      <p>Add game to the list</p>
+      <p>Your games backlog</p>
       <StatRow />
-
-      {games.map(game => (
-        <div key={game.id}>
-          <strong>{game.title}</strong> — {game.status} — {game.playtime}h
-          <button>Usuń</button>
-        </div>
-      ))}
+      <div className={styles.button_row}>
+        <button>Add game</button>
+        <button>All games</button>
+        <button>Not started</button>
+        <button>In Progress</button>
+        <button>Completed</button>
+      </div>
+      <GameList />
     </div>
   );
 }
