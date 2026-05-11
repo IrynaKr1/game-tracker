@@ -10,3 +10,6 @@ export const getAllGames = () => axiosInstance.get('/games');
 export const deletGameById = id => axiosInstance.delete(`/games/${id}`);
 
 //TODO add api for notes, for game -> getGameById, updateGameById
+
+//API rawg
+export const getRawgGame = rawgId => axiosInstance.get(`/rawg/games/${rawgId}`);
