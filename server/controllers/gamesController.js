@@ -45,8 +45,6 @@ module.exports.getAllGames = async (req, res, next) => {
       },
     });
 
-    console.log('games:', JSON.stringify(games));
-
     res.status(200).send({ data: games });
   } catch (error) {
     next(error);
