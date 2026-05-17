@@ -21,7 +21,7 @@ function MainPage ({ games = [], isFetching, error, getGames }) {
       <p>Your games backlog</p>
       <StatRow />
       <div className={styles.button_row}>
-        <button>Add game</button>
+        <button onClick={() => setModalOpen(true)}>Add game</button>
         <button>All games</button>
         <button>Not started</button>
         <button>In Progress</button>
