@@ -7,6 +7,9 @@ const initialState = {
   games: [],
   isFetching: false,
   error: null,
+  filter: {
+    status: null,
+  },
 };
 
 export const createGameThunk = createAsyncThunk(
@@ -40,7 +43,11 @@ export const getGameThunk = createAsyncThunk(
 const gameSlice = createSlice({
   name: GAMES_SLICE_NAME,
   initialState,
-  reducers: {},
+  reducers: {
+    changeGameStatusFilter: (state, { payload }) => {
+      state.filter.status = payload;
+    },
+  },
   extraReducers: builder => {
     //add game
 
@@ -71,12 +78,14 @@ const gameSlice = createSlice({
     });
 
     builder.addCase(getGameThunk.rejected, (state, { payload }) => {
-       state.error = payload;
+      state.error = payload;
       state.isFetching = false;
     });
   },
 });
 
-const { reducer } = gameSlice;
+const { reducer, actions } = gameSlice;
+
+export const { changeGameStatusFilter } = actions;
 
 export default reducer;

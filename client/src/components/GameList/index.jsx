@@ -17,7 +17,9 @@ function GameList ({ games = [] }) {
 }
 
 const mapStateToProps = ({ gamesData }) => ({
-  games: gamesData.games,
+  games: gamesData.filter.status
+    ? gamesData.games.filter(game => game.status === gamesData.filter.status)
+    : gamesData.games,
 });
 
 export default connect(mapStateToProps)(GameList);
