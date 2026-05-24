@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
+import { deleteGameThunk } from '../../store/slices/gamesSlice';
 import styles from './GameCard.module.scss';
 
-function GameCard ({ game }) {
+function GameCard ({ game, deleteGame }) {
   return (
     <div className={styles.card}>
       <div className={styles.img_container}>
@@ -12,7 +13,7 @@ function GameCard ({ game }) {
             alt={game.title}
           />
         )}
-      </div >
+      </div>
       <div className={styles.game_info}>
         <h3>{game.title}</h3>
         <p>{game.genre}</p>
@@ -21,10 +22,13 @@ function GameCard ({ game }) {
       </div>
       <div className={styles.gameCard_actions}>
         <button>Edit</button>
-        <button>Delete</button>
+        <button onClick={() => deleteGame(game.id)}>Delete</button>
       </div>
     </div>
   );
 }
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  deleteGame: id => dispatch(deleteGameThunk(id)),
+});
+
 export default connect(null, mapDispatchToProps)(GameCard);

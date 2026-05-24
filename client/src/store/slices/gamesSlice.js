@@ -40,6 +40,18 @@ export const getGameThunk = createAsyncThunk(
   }
 );
 
+export const deleteGameThunk = createAsyncThunk(
+  `${GAMES_SLICE_NAME}/delete`,
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await API.deletGameById(payload);
+      return payload;
+    } catch (error) {
+      return rejectWithValue({ errors: error.response.data });
+    }
+  }
+);
+
 const gameSlice = createSlice({
   name: GAMES_SLICE_NAME,
   initialState,
@@ -78,6 +90,18 @@ const gameSlice = createSlice({
     });
 
     builder.addCase(getGameThunk.rejected, (state, { payload }) => {
+      state.error = payload;
+      state.isFetching = false;
+    });
+
+    //delete
+
+    builder.addCase(deleteGameThunk.fulfilled, (state, { payload }) => {
+      state.games = state.games.filter(g => g.id !== payload);
+      state.error = null;
+      state.isFetching = false;
+    });
+    builder.addCase(deleteGameThunk.rejected, (state, { payload }) => {
       state.error = payload;
       state.isFetching = false;
     });
