@@ -19,4 +19,4 @@ function fileFilter (req, file, cb) {
 
 const upload = multer({ storage, fileFilter });
 
-module.exports.uploadGameImage = upload.single('gameImage');
+module.exports.uploadGameImage = upload.single('image');

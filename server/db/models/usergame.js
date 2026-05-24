@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       playtime: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         validate: {
           min: 0,
         },
