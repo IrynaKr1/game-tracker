@@ -3,7 +3,7 @@ import styles from './GameCard.module.scss';
 
 function GameCard ({ game }) {
   return (
-    <div>
+    <div className={styles.card}>
       <div className={styles.img_container}>
         {game.image && (
           <img
@@ -12,7 +12,7 @@ function GameCard ({ game }) {
             alt={game.title}
           />
         )}
-      </div>
+      </div >
       <div className={styles.game_info}>
         <h3>{game.title}</h3>
         <p>{game.genre}</p>

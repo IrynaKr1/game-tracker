@@ -7,7 +7,7 @@ import { GAME_STATUS, GAME_STATUS_LIST } from '../../../utils/constants';
 import { createGameThunk } from '../../../store/slices/gamesSlice';
 import styles from './GamesForm.module.scss';
 
-function GameForm ({ createGame }) {
+function GameForm ({ createGame, onSuccess }) {
   const initialValues = {
     title: '',
     genre: '',
@@ -27,6 +27,7 @@ function GameForm ({ createGame }) {
     }
     createGame(formData);
     formikBag.resetForm();
+    onSuccess();
   };
 
   const classes = {
