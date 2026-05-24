@@ -2,7 +2,8 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import Input from '../Input';
-import { GAME_STATUS } from '../../../utils/constants';
+import Select from '../Select';
+import { GAME_STATUS, GAME_STATUS_LIST } from '../../../utils/constants';
 import { createGameThunk } from '../../../store/slices/gamesSlice';
 import styles from './GamesForm.module.scss';
 
@@ -21,7 +22,9 @@ function GameForm ({ createGame }) {
     formData.append('genre', values.genre);
     formData.append('status', values.status);
     formData.append('playtime', values.playtime);
-    formData.append('image', values.image);
+    if (values.image) {
+      formData.append('image', values.image);
+    }
     createGame(formData);
     formikBag.resetForm();
   };
@@ -36,7 +39,7 @@ function GameForm ({ createGame }) {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {formikProps => (
-        <Form>
+        <Form className={styles.formContainer}>
           <Input
             label='Title:'
             type='text'
@@ -44,7 +47,45 @@ function GameForm ({ createGame }) {
             placeholder='Add game title'
             classes={classes}
           />
-          <button type='submit'>Add</button>
+          <Input
+            label='Genre:'
+            type='text'
+            name='genre'
+            placeholder='Add game genre'
+            classes={classes}
+          />
+          <Select
+            label='Status:'
+            name='status'
+            options={GAME_STATUS_LIST}
+            classes={classes}
+          />
+          <Input
+            label='Playtime (hours):'
+            type='number'
+            name='playtime'
+            placeholder='0'
+            classes={classes}
+          />
+          <label>
+            <span>Image: </span>
+            <input
+              className={classes.input}
+              type='file'
+              onChange={e =>
+                formikProps.setFieldValue(
+                  'image',
+                  e.currentTarget.files[0] ?? null
+                )
+              }
+            />
+            {formikProps.values.image && (
+              <span>{formikProps.values.image.name}</span>
+            )}
+          </label>
+          <button type='submit' disabled={formikProps.isSubmitting}>
+            {formikProps.isSubmitting ? 'Submitting...' : 'Add game'}
+          </button>
         </Form>
       )}
     </Formik>
@@ -52,7 +93,7 @@ function GameForm ({ createGame }) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createGame: data => dispatch(createGameThunk(data)),
+  createGame: values => dispatch(createGameThunk(values)),
 });
 
 export default connect(null, mapDispatchToProps)(GameForm);

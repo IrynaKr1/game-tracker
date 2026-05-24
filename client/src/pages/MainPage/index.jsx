@@ -4,9 +4,11 @@ import { getGameThunk } from '../../store/slices/gamesSlice';
 import StatRow from '../../components/StatRow';
 import styles from './MainPage.module.scss';
 import GameList from '../../components/GameList';
+import ModalForm from '../../components/ModalForm';
+import GameForm from '../../components/forms/GameForm';
 
 function MainPage ({ games = [], isFetching, error, getGames }) {
-  const [filter, setFilter] = useState('Wszystkie');
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     getGames();
@@ -28,6 +30,14 @@ function MainPage ({ games = [], isFetching, error, getGames }) {
         <button>Completed</button>
       </div>
       <GameList />
+      {isModalOpen && (
+        <ModalForm onClose={() => setModalOpen(false)}>
+          <GameForm
+            onSuccess={() => setModalOpen(false)}
+            onClose={() => setModalOpen(false)}
+          />
+        </ModalForm>
+      )}
     </div>
   );
 }
