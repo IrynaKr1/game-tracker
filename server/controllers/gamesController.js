@@ -1,6 +1,8 @@
 const createHttpError = require('http-errors');
 const _ = require('lodash');
 const fs = require('fs');
+const path = require('path');
+const {STATIC_PATH} = require('../constants')
 const { UserGame, GameNote } = require('../db/models');
 
 const USER_ID = 2;
