@@ -9,7 +9,7 @@ function GameCard ({ game, deleteGame }) {
         {game.image && (
           <img
             className={styles.game_img}
-            src={`http://localhost:5000/images/${game.image}`}
+            src={game.image.startsWith('http') ? game.image : `http://localhost:5000/images/${game.image}`}
             alt={game.title}
           />
         )}

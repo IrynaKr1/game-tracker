@@ -7,7 +7,7 @@ function Input (props) {
   return (
     <Field name={name}>
       {({
-        field, // { name, value, onChange, onBlur }
+        field, 
         form: { errors, touched },
         meta,
       }) => {
