@@ -2,7 +2,7 @@ const createHttpError = require('http-errors');
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
-const {STATIC_PATH} = require('../constants')
+const { STATIC_PATH } = require('../constants');
 const { UserGame, GameNote } = require('../db/models');
 
 const USER_ID = 2;
@@ -21,8 +21,8 @@ module.exports.addGame = async (req, res, next) => {
       title: body.title,
       genre: body.genre,
       status: body.status,
-      playtime: body.playtime,
-      image: file ? file.filename : null,
+      playtime: body.playtime ? parseFloat(body.playtime) : null,
+      image: file ? file.filename : body.imageUrl || null,
     });
 
     if (!createdGame) {
